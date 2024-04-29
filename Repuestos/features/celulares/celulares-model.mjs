@@ -3,10 +3,10 @@ import mysql from 'mysql';
 export default class CiudadesModel {
   constructor() {
     this.connection = mysql.createConnection({
-      host: "localhost:8080",
+      host: "localhost",
       user: "root",
       password: "",
-      database: "ferregas",
+      database: "celulares",
     });
   }
 
@@ -19,7 +19,7 @@ export default class CiudadesModel {
   }
 
   async getAllCiudades(ciudadId, country) {
-    const query = 'SELECT ID, Nombre, Precio FROM productos';
+    const query = 'SELECT Marca, Modelo, Precio, Memoria FROM celular';
     try {
       const results = await new Promise((resolve, reject) => {
         this.connection.query(query, (error, results) => {
