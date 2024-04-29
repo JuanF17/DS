@@ -1,11 +1,11 @@
 import express from "express";
-import CiudadesModel from "../../ciudades-model.mjs";
+import CelularesModel from "../../celulares-model.mjs";
  
 const { Router } = express;
 
-export default class CiudadesController {
+export default class celularesController {
   #router = Router();
-  #CiudadesModel = null;
+  #CelularesModel = null;
   
   constructor() {
     this.registerRoutes();
@@ -17,21 +17,21 @@ export default class CiudadesController {
   
   registerRoutes() {
     const routerV1 = Router();
-    routerV1.get(`/ciudades`, async (req, res) => await this.getAllCiudades(req, res));
+    routerV1.get(`/celular`, async (req, res) => await this.getAllCelulares(req, res));
     
     this.#router.use(`/v1`, routerV1);
   }
   
-  async getAllCiudades(req, res) {
+  async getAllCelulares(req, res) {
     try {
-      this.#CiudadesModel = new CiudadesModel();
-      this.#CiudadesModel.connect();
-      const ciudades = await this.#CiudadesModel.getAllCiudades();
-      res.json(ciudades);
+      this.#CelularesModel = new CelularesModel();
+      this.#CelularesModel.connect();
+      const cels = await this.#CelularesModel.getAllCelulares();
+      res.json(cels);
     } catch (error) {
       console.error(`error: ${error}`);
     } finally {
-      this.#CiudadesModel.closeConnection();
+      this.#CelularesModel.closeConnection();
     }
   }
 }
