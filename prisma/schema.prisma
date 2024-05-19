@@ -1,0 +1,27 @@
+generator client {
+provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+ model  phones{
+  id Int @id @default (autoincrement())
+  marca String
+  modelo String
+  precio Int
+  rom Int
+  ram Int
+  
+}
+
+model clients{
+  id Int @id @default (autoincrement())
+  nombre String
+  cedula Int
+  celular String
+  cuotas Int
+  precioTotal Int
+}

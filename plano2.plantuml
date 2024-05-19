@@ -4,13 +4,13 @@ boundary "<<Pantalla>>\nDatosDeCelular" as boundryPantallaDatosDeCelular
 
 actorAsesor -> boundryPantallaDatosDeCelular
 activate boundryPantallaDatosDeCelular
-    boundryPantallaDatosDeCelular -> boundryPantallaDatosDeCelular: getCelulares()
+    boundryPantallaDatosDeCelular -> boundryPantallaDatosDeCelular: getClientes()
     activate boundryPantallaDatosDeCelular
         control "CelularesController" as celularesController
-            control "CelularesModel" as celularesModelPrisma
-            boundryPantallaDatosDeCelular -> celularesController: GET api/v1/celulares: Celulares[]
+            control "CelularesModelPrisma" as celularesModelPrisma
+            boundryPantallaDatosDeCelular -> celularesController: GET api/v1/clientes: Clientes[]
             activate celularesController
-                celularesController -> celularesModelPrisma: getAllCelulares()
+                celularesController -> celularesModelPrisma: getAllClientes()
                 activate celularesController
                     database "Tienda_db" as dbTienda
                     entity stock
@@ -19,7 +19,7 @@ activate boundryPantallaDatosDeCelular
                         activate celularesModelPrisma
                             celularesModelPrisma -> dbTienda: SQL query
                             dbTienda -> stock
-                            dbTienda -> celularesModelPrisma: {marca, modelo, precio, rom, ram}
+                            dbTienda -> celularesModelPrisma: {nombre, cedula, celular, cuotas, precioTotal}
                         deactivate
 
                     deactivate
